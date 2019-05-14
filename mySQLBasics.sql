@@ -16,21 +16,21 @@ CREATE TABLE customer (ID SMALLINT NOT NULL, Name VARCHAR(50), City VARCHAR(50),
 INSERT INTO 
 	salesperson(ID, Name, Age, Salary)
 VALUES
-	(1,'Abe',61,140000),
-  (2,'Bob',34,44000),
-  (5,'Chris',34,40000),
-	(7,'Dan',41,52000),
-  (8,'Ken',57,115000),
-  (11,'Joe',38,38000);
+  (1,'Andy',61,140000),
+  (2,'Bert',34,44000),
+  (5,'Christopher',34,40000),
+  (7,'Daniel',41,52000),
+  (8,'Kenneth',57,115000),
+  (11,'Joesph',38,38000);
     
 INSERT INTO
 	orders(Number, order_date, cust_id, salesperson_id, Amount)
 VALUES
-	(10,'1996-08-02',4,2.540),
-	(20,'1999-01-30',4,8,1800),
+  (10,'1996-08-02',4,2.540),
+  (20,'1999-01-30',4,8,1800),
   (30,'1995-07-14',9,1,460),
   (40,'1998-01-29',7,2,2400),
-	(50,'1998-02-03',6,7,600),
+  (50,'1998-02-03',6,7,600),
   (60,'1998-03-02',6,7,720),
   (70,'1998-05-06',9,7,150);
     
@@ -38,7 +38,7 @@ INSERT INTO
 	customer(ID, Name, City, `Industry Type`)
 VALUES
   (4,'Samsung','pleasant','J'),
-	(6,'Panasonic','oaktown','J'),
+  (6,'Panasonic','oaktown','J'),
   (7,'Google','jackson', 'B'),
   (9,'Apple','Jackson','B');
 
@@ -129,17 +129,45 @@ GROUP BY
 /**********************************************END OF SALES SQL**********************************************/
 
 /********************************************START OF LOGGING SQL********************************************/
-/*
---table User-- 
+
+DROP DATABASE IF EXISTS itLogging_db;
+CREATE DATABASE itLogging_db;
+USE itLogging_db;
+
+DROP TABLE IF EXISTS User;
+CREATE TABLE User (user_id SMALLINT NOT NULL, name VARCHAR(50), phone_number varchar(6), PRIMARY KEY (user_id));	       
+
+/*--table User-- 
 user_id 
 name 
-phone_num
---table UserHistory-- 
+phone_num*/												      
+INSERT INTO User ('user_id', 'name', 'phone_num')
+VALUES
+(1 , 'Abe'    , '111' ),
+(2 , 'Bob'    , '222' ),
+(5 , 'Chris'  , '333' ),
+(7 , 'Dan'    , '444' ),
+(8 , 'Ken'    , '555' ),
+(11, 'Joe'    , '666' );
+
+/*--table UserHistory-- 
 user_id 
 date 
-action
+action*/
+DROP TABLE IF EXISTS UserHistory;
+CREATE TABLE User (user_id SMALLINT NOT NULL, date VARCHAR(10), action varchar(25), PRIMARY KEY (user_id));													      
 
-1. Write a SQL query that returns the name, phone number and most recent date for any user that has
+INSERT INTO UserHistory ('user_id', 'date', 'action')
+VALUES
+(1, '2019-05-05', 'logged_on'),
+(2, '2018-12-01', 'logged_on'),
+(5, '2018-12-01', 'logged_on'),
+(5, '2019-05-05', 'logged_on'),
+(7, '2019-05-05', 'logged_off'),
+(8, '2019-05-01', 'logged_on'),
+(8, '2019-04-05', 'logged_on');
+	       
+/*1. Write a SQL query that returns the name, phone number and most recent date for any user that has
 logged in over the last 30 days (you can tell a user has logged in if the action field in 
 UserHistory is set to "logged_on").
 
@@ -172,4 +200,4 @@ LEFT JOIN userhistory as uh
 WHERE 
 	uh.user_id IS NULL;
  
-  /*********************************************END OF LOGGING SQL*********************************************/
+/*********************************************END OF LOGGING SQL*********************************************/
